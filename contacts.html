@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>химчистка авто минск</title>
+    <!-- Font Awesome 5 (иконки) -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <!-- Google Fonts (Inter) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f6f8fa;
+            color: #1e2b3c;
+            line-height: 1.5;
+        }
+
+        .app {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 24px 40px;
+        }
+
+        /* header / навигация */
+        .header {
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #0a1a2b;
+            margin-bottom: 20px;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+
+        .header h1 i {
+            color: #2b7a4b;
+            font-size: 2.2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            border-bottom: 2px solid #dde2e8;
+            padding-bottom: 12px;
+            justify-content: center;
+        }
+
+        .nav-link {
+            padding: 10px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            color: #4a5f73;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #e9eef3;
+            color: #1e3a5f;
+        }
+
+        .nav-link.active {
+            background: #ffffff;
+            color: #0f5b3a;
+            box-shadow: 0 2px 8px rgba(15, 91, 58, 0.15);
+        }
+
+        /* контейнер контента */
+        .content-card {
+            background: white;
+            border-radius: 32px;
+            padding: 36px 32px;
+            box-shadow: 0 15px 40px -12px rgba(0, 32, 64, 0.12);
+            margin-top: 24px;
+        }
+
+        /* контакты */
+        .contacts-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .info-col {
+            flex: 1 1 240px;
+        }
+
+        .info-col h2 {
+            font-size: 1.8rem;
+            color: #0b2b3b;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .info-col h2 i {
+            color: #0f5b3a;
+        }
+
+        /* Стили для кликабельных контактов */
+        .contact-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: #f2f7fd;
+            border-radius: 80px;
+            padding: 16px 28px;
+            font-weight: 500;
+            transition: 0.2s;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .contact-link:hover .contact-detail {
+            background: #e8f0f8;
+            transform: translateX(5px);
+        }
+
+        .contact-detail i {
+            font-size: 1.6rem;
+            color: #0f5b3a;
+            width: 36px;
+        }
+
+        .contact-detail div {
+            flex: 1;
+        }
+
+        .contact-detail strong {
+            font-size: 1.1rem;
+            display: block;
+        }
+
+        .contact-detail small {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Карта */
+        .map-placeholder {
+            flex: 2 1 300px;
+            background: linear-gradient(145deg, #d0dee8, #e1eef5);
+            border-radius: 32px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #1f4155;
+            font-weight: 600;
+            border: 2px dashed #5982a1;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .map-placeholder i {
+            font-size: 4rem;
+            color: #1c4e3a;
+            margin-bottom: 20px;
+        }
+
+        .map-placeholder p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .map-button {
+            margin-top: 20px;
+            background: #0f5b3a;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .map-button:hover {
+            background: #1a7a4e;
+        }
+
+        /* Время работы */
+        .work-time {
+            margin-top: 30px;
+            background: #e1f0e8;
+            border-radius: 40px;
+            padding: 20px 28px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: space-around;
+        }
+
+        .work-time span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .work-time i {
+            color: #0f5b3a;
+            font-size: 1.2rem;
+        }
+
+        /* Быстрый звонок */
+        .quick-call {
+            text-align: center;
+            margin: 30px 0 20px;
+        }
+
+        .quick-call a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #0f5b3a;
+            color: white;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(15, 91, 58, 0.3);
+        }
+
+        .quick-call a:hover {
+            background: #1a7a4e;
+            transform: scale(1.05);
+        }
+
+        /* Кнопка назад */
+        .back-home {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #0f5b3a;
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .back-home a:hover {
+            background: #1a7a4e;
+            transform: translateY(-2px);
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            text-align: center;
+            color: #556f84;
+            font-size: 0.9rem;
+            border-top: 1px solid #d7e0e9;
+            padding-top: 20px;
+        }
+
+        /* адаптация для мобильных */
+        @media (max-width: 550px) {
+            .app {
+                padding: 12px;
+            }
+
+            .content-card {
+                padding: 20px 16px;
+            }
+
+            .nav-link {
+                padding: 8px 14px;
+                font-size: 0.9rem;
+            }
+
+            .nav-link i {
+                font-size: 0.9rem;
+            }
+
+            .contact-detail {
+                padding: 14px 20px;
+            }
+
+            .contact-detail strong {
+                font-size: 1rem;
+            }
+
+            .work-time {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .work-time span {
+                justify-content: center;
+            }
+
+            .quick-call a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <div class="header">
+            <h1>
+                <i class="fas fa-spray-can-sparkles"></i>
+                Химчистка авто в Минске
+            </h1>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Главная</a>
+                <a href="tonirovka.html" class="nav-link"><i class="fas fa-car-side"></i> Тонировка</a>
+                <a href="himchistka.html" class="nav-link"><i class="fas fa-spray-can-sparkles"></i> Химчистка</a>
+                <a href="polirovka-far.html" class="nav-link"><i class="fas fa-lightbulb"></i> Полировка фар</a>
+                <a href="pokraska.html" class="nav-link"><i class="fas fa-paint-brush"></i> Покраска</a>
+                <a href="gallery.html" class="nav-link"><i class="fas fa-images"></i> Галерея</a>
+                <a href="contacts.html" class="nav-link active"><i class="fas fa-map-pin"></i> Контакты</a>
+            </nav>
+        </div>
+
+        <div class="content-card">
+            <h2 style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
+                <i class="fas fa-address-card" style="color: #0f5b3a; font-size: 2rem;"></i>
+                Контакты
+            </h2>
+
+            <div class="contacts-row">
+                <div class="info-col">
+                    <!-- Телефон A1 / Velcom -->
+                    <a href="tel:+375293949124" class="contact-link">
+                        <div class="contact-detail">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <strong>+375 (29) 394-91-24</strong>
+                                <small>A1 / Velcom</small>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/him4istka.auto" target="_blank" class="contact-link">
+                        <div class="contact-detail">
+                            <i class="fab fa-instagram" style="color: #E1306C;"></i>
+                            <div>
+                                <strong>@him4istka.auto</strong>
+                                <small>Наши работы в Instagram</small>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Telegram с ником -->
+                    <a href="https://t.me/Gena_xyligan" target="_blank" class="contact-link">
+                        <div class="contact-detail">
+                            <i class="fab fa-telegram" style="color: #0088cc;"></i>
+                            <div>
+                                <strong>Telegram</strong>
+                                <small>@Gena_xyligan</small>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Viber -->
+                    <a href="viber://chat?number=%2B375293949124" class="contact-link">
+                        <div class="contact-detail">
+                            <i class="fab fa-viber" style="color: #7360F2;"></i>
+                            <div>
+                                <strong>Viber</strong>
+                                <small>Быстрый ответ в Viber</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Карта с адресом -->
+                <div class="map-placeholder">
+                    <a href="https://yandex.by/maps/?text=Минск%2C+Авиации+5" target="_blank" class="map-link">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <p><strong>Минск, Авиации, 5</strong></p>
+                        <p style="font-size: 1.1rem;">въезд в ГТК Сокол</p>
+                        <div class="map-button"
+                            style="padding: 8px 18px; margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i class="fas fa-location-arrow"
+                                style="display: flex; align-items: center; height: 100%; font-size: 0.9rem; margin-top: auto; color: black"></i>
+                            <span>Построить маршрут</span>
+                        </div>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <div class="work-time">
+            <span><i class="fas fa-calendar-check"></i> пн–пт: 9:00 – 21:00</span>
+            <span><i class="fas fa-calendar-check"></i> сб: 10:00 – 20:00</span>
+            <span><i class="fas fa-calendar-check"></i> вс: 11:00 – 18:00</span>
+            <span><i class="fas fa-clock"></i> строго по записи</span>
+        </div>
+
+        <!-- Дополнительная информация -->
+        <div style="margin-top: 20px; text-align: center; color: #0f5b3a; font-size: 0.95rem;">
+            <i class="fas fa-car"></i> Бесплатная парковка для клиентов ·
+            <i class="fas fa-wifi"></i> Wi-Fi в зоне ожидания
+        </div>
+
+        <!-- Кнопка быстрого звонка -->
+        <div class="quick-call">
+            <a href="tel:+375293949124">
+                <i class="fas fa-phone-alt"></i> Позвонить
+            </a>
+        </div>
+
+        <div class="back-home">
+            <a href="index.html">
+                <i class="fas fa-arrow-left"></i> Вернуться на главную
+            </a>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <i class="fas fa-soap"></i> Химчистка авто в Минске — вернём свежесть вашему автомобилю
+    </div>
+    </div>
+
+    <script>
+        // Устанавливаем заголовок страницы
+        document.title = 'химчистка авто минск';
+    </script>
+</body>
+
+</html>
