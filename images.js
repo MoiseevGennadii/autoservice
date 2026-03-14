@@ -9,14 +9,8 @@ const galleryImages = {
       files: ['himchistka-skoda-do.jpg', 'himchistka-skoda-posle.jpg'], 
       caption: 'Химчистка салона Skoda до/после' 
     },
-    { 
-      files: ['photo_2026-02-18_18-01-46.jpg', 'photo_2026-02-18_18-01-58.jpg'], 
-      caption: 'Химчистка салона Mercedes до/после' 
-    },
-    { 
-      files: ['himchistka2.jpg'], 
-      caption: 'Чистка кожаных сидений' 
-    }
+    { files: ['photo_2026-02-18_18-01-46.jpg', 'photo_2026-02-18_18-01-58.jpg'], caption: 'Химчистка салона Mercedes до/после' },
+    { files: ['himchistka2.jpg'], caption: 'Чистка кожаных сидений' }
   ],
   polirovka: [
     { 
