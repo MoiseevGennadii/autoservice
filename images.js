@@ -6,7 +6,7 @@ const galleryImages = {
   himchistka: [
     {
       files: [
-        'photo_2026-02-18_18-01-46.jpg', 'photo_2026-02-18_18-01-58.jpg',
+        'photo_2026-02-18_18-01-58.jpg', 'photo_2026-02-18_18-01-46.jpg',
         'photo_2026-03-14_12-26-57.jpg', 'photo_2026-03-14_12-26-33.jpg'
       ], caption: 'Химчистка салона до/после'
     },
