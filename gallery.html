@@ -154,7 +154,7 @@
             background: white;
         }
 
-        /* Модальное окно */
+        /* Модальное окно (основное) */
         .modal {
             display: none;
             position: fixed;
@@ -223,6 +223,12 @@
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             background: #1a1a1a;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-pair img:active {
+            transform: scale(0.98);
         }
 
         /* Подписи ДО/ПОСЛЕ */
@@ -270,7 +276,7 @@
             vertical-align: middle;
         }
 
-        /* Кнопка закрытия */
+        /* Кнопка закрытия основного модального окна */
         .close-modal {
             position: absolute;
             top: -40px;
@@ -303,6 +309,75 @@
             flex-shrink: 0;
         }
 
+        /* Второе модальное окно для увеличенного фото */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .zoom-modal.active {
+            display: flex;
+        }
+
+        .zoom-content {
+            position: relative;
+            max-width: 95%;
+            max-height: 95%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .zoom-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .zoom-caption {
+            color: white;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            padding: 0 10px;
+        }
+
+        .close-zoom {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            z-index: 2001;
+            line-height: 1;
+            background: rgba(0, 0, 0, 0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-zoom:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         /* Кнопка "На главную" */
         .back-link {
             margin-top: 30px;
@@ -332,6 +407,14 @@
             }
 
             .close-modal {
+                top: 5px;
+                right: 5px;
+                width: 40px;
+                height: 40px;
+                font-size: 2rem;
+            }
+
+            .close-zoom {
                 top: 5px;
                 right: 5px;
                 width: 40px;
@@ -387,12 +470,21 @@
             <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> На главную</a>
         </div>
 
-        <!-- Модальное окно -->
+        <!-- Основное модальное окно (галерея) -->
         <div id="modal" class="modal" onclick="closeModal(event)">
             <div class="modal-content">
                 <span class="close-modal" onclick="closeModal(event)">&times;</span>
                 <div id="modal-images" class="modal-images"></div>
                 <div id="modal-caption" class="modal-caption"></div>
+            </div>
+        </div>
+
+        <!-- Модальное окно для увеличенного фото -->
+        <div id="zoomModal" class="zoom-modal" onclick="closeZoomModal(event)">
+            <div class="zoom-content">
+                <span class="close-zoom" onclick="closeZoomModal(event)">&times;</span>
+                <img id="zoomImage" src="" alt="">
+                <div id="zoomCaption" class="zoom-caption"></div>
             </div>
         </div>
 
@@ -429,6 +521,26 @@
             });
         }
 
+        // Функция открытия увеличенного фото
+        function openZoom(imgSrc, caption) {
+            const zoomModal = document.getElementById('zoomModal');
+            const zoomImage = document.getElementById('zoomImage');
+            const zoomCaption = document.getElementById('zoomCaption');
+            
+            zoomImage.src = imgSrc;
+            zoomCaption.textContent = caption;
+            zoomModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Функция закрытия увеличенного фото
+        function closeZoomModal(event) {
+            if (event.target === document.getElementById('zoomModal') || event.target.classList.contains('close-zoom')) {
+                document.getElementById('zoomModal').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
         // Функция открытия модального окна для нескольких пар фото
         function openModal(files, caption) {
             const modal = document.getElementById('modal');
@@ -459,19 +571,27 @@
                     imagesContainer.style.gridTemplateColumns = '1fr 1fr';
                     imagesContainer.style.gap = '15px';
 
-                    // Добавляем первое фото (ДО)
+                    // Добавляем первое фото (ДО) - с возможностью увеличения
                     if (files[i]) {
                         const img1 = document.createElement('img');
                         img1.src = 'img/' + files[i];
                         img1.alt = caption + ' - ДО';
+                        img1.onclick = (e) => {
+                            e.stopPropagation();
+                            openZoom('img/' + files[i], caption + ' - ДО');
+                        };
                         imagesContainer.appendChild(img1);
                     }
 
-                    // Добавляем второе фото (ПОСЛЕ)
+                    // Добавляем второе фото (ПОСЛЕ) - с возможностью увеличения
                     if (files[i + 1]) {
                         const img2 = document.createElement('img');
                         img2.src = 'img/' + files[i + 1];
                         img2.alt = caption + ' - ПОСЛЕ';
+                        img2.onclick = (e) => {
+                            e.stopPropagation();
+                            openZoom('img/' + files[i + 1], caption + ' - ПОСЛЕ');
+                        };
                         imagesContainer.appendChild(img2);
                     }
 
@@ -493,7 +613,7 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Функция закрытия модального окна
+        // Функция закрытия основного модального окна
         function closeModal(event) {
             if (event.target === document.getElementById('modal') || event.target.classList.contains('close-modal')) {
                 document.getElementById('modal').classList.remove('active');
