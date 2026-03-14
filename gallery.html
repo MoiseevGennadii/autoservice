@@ -155,7 +155,6 @@
         }
 
         /* Модальное окно */
-        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -167,7 +166,7 @@
             background: rgba(0, 0, 0, 0.95);
             align-items: center;
             justify-content: center;
-            padding: 10px;
+            padding: 20px;
             box-sizing: border-box;
         }
 
@@ -176,45 +175,99 @@
         }
 
         .modal-content {
-            max-width: 95%;
-            max-height: 95%;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
             position: relative;
             text-align: center;
             display: flex;
             flex-direction: column;
+            background: transparent;
         }
 
-        /* Контейнер для изображений */
+        /* Контейнер для изображений - ОДНА КОЛОНКА */
         .modal-images {
             display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 10px;
+            overflow-y: auto;
+            max-height: calc(80vh - 80px);
+        }
+
+        /* Контейнер для отдельной пары фото */
+        .photo-pair {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 15px;
+            width: 100%;
+        }
+
+        /* Контейнер для изображений внутри пары */
+        .photo-pair .images-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            min-height: 0;
-            /* Важно для flexbox */
+            width: 100%;
         }
 
-        /* Для одиночного фото */
-        .modal-images.single img {
-            max-width: 100%;
-            max-height: 80vh;
-            width: auto;
+        /* Стили для всех изображений */
+        .photo-pair img {
+            width: 100%;
             height: auto;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Для пары фото */
-        .modal-images:not(.single) img {
-            max-width: calc(50% - 8px);
-            max-height: 70vh;
-            width: auto;
-            height: auto;
+            max-height: 40vh;
             object-fit: contain;
-            border-radius: 16px;
+            border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             background: #1a1a1a;
+        }
+
+        /* Подписи ДО/ПОСЛЕ */
+        .pair-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0 5px;
+        }
+
+        .pair-label span:first-child {
+            color: #ffa500;
+            background: rgba(255, 165, 0, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .pair-label span:last-child {
+            color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* Разделитель между парами */
+        .pair-divider {
+            text-align: center;
+            color: #888;
+            font-size: 1rem;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .pair-divider::before,
+        .pair-divider::after {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 1px;
+            background: #444;
+            margin: 0 10px;
+            vertical-align: middle;
         }
 
         /* Кнопка закрытия */
@@ -227,80 +280,73 @@
             cursor: pointer;
             z-index: 1001;
             line-height: 1;
+            background: rgba(0, 0, 0, 0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Подпись под фото */
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Подпись под фото (основная) */
         .modal-caption {
             color: white;
             text-align: center;
             margin-top: 15px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             padding: 0 10px;
+            flex-shrink: 0;
+        }
+
+        /* Кнопка "На главную" */
+        .back-link {
+            margin-top: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #0f5b3a;
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 50px;
         }
 
         /* Адаптация для мобильных */
         @media (max-width: 768px) {
             .modal-content {
                 max-width: 100%;
-                max-height: 100%;
-                width: 100%;
-                padding: 10px 0;
             }
 
-            .modal-images {
-                flex-direction: column;
+            .photo-pair .images-container {
+                grid-template-columns: 1fr;
                 gap: 10px;
-                height: auto;
-                max-height: calc(100vh - 100px);
-                overflow-y: auto;
-                /* Добавляем прокрутку если нужно */
-                padding: 10px 0;
             }
 
-            /* Для пары фото на мобильных */
-            .modal-images:not(.single) img {
-                max-width: 95%;
-                max-height: 45vh;
-                /* Каждое фото занимает меньше половины экрана */
-                width: auto;
-                height: auto;
-            }
-
-            /* Для одиночного фото на мобильных */
-            .modal-images.single img {
-                max-width: 100%;
-                max-height: 70vh;
+            .photo-pair img {
+                max-height: 35vh;
             }
 
             .close-modal {
                 top: 5px;
-                right: 10px;
-                background: rgba(0, 0, 0, 0.6);
-                width: 44px;
-                height: 44px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 2.2rem;
-                line-height: 1;
-            }
-
-            .modal-caption {
-                font-size: 1rem;
-                margin-top: 10px;
-                padding: 0 15px 10px;
+                right: 5px;
+                width: 40px;
+                height: 40px;
+                font-size: 2rem;
             }
         }
 
-        /* Для очень маленьких экранов */
-        @media (max-width: 480px) {
-            .modal-images:not(.single) img {
-                max-height: 40vh;
+        @media (max-width: 550px) {
+            .app {
+                padding: 12px;
             }
 
-            .modal-images.single img {
-                max-height: 65vh;
+            .content-card {
+                padding: 20px;
             }
         }
     </style>
@@ -383,30 +429,64 @@
             });
         }
 
-        // Функция открытия модального окна с поддержкой нескольких фото
+        // Функция открытия модального окна для нескольких пар фото
         function openModal(files, caption) {
             const modal = document.getElementById('modal');
-            const modalContent = document.querySelector('.modal-content');
             const modalImages = document.getElementById('modal-images');
             const modalCaption = document.getElementById('modal-caption');
 
             // Очищаем контейнер
             modalImages.innerHTML = '';
 
-            // Устанавливаем класс в зависимости от количества фото
-            if (files.length === 2) {
-                modalImages.className = 'modal-images';
-            } else {
-                modalImages.className = 'modal-images single';
-            }
+            // Проверяем, что files - это массив
+            if (Array.isArray(files)) {
+                // Разбиваем на пары (каждые 2 фото - одна пара)
+                for (let i = 0; i < files.length; i += 2) {
+                    // Создаем контейнер для пары
+                    const pairDiv = document.createElement('div');
+                    pairDiv.className = 'photo-pair';
 
-            // Добавляем все фото
-            files.forEach(file => {
-                const img = document.createElement('img');
-                img.src = 'img/' + file;
-                img.alt = caption;
-                modalImages.appendChild(img);
-            });
+                    // Добавляем подписи ДО/ПОСЛЕ для КАЖДОЙ пары
+                    const labelDiv = document.createElement('div');
+                    labelDiv.className = 'pair-label';
+                    labelDiv.innerHTML = '<span>🔄 ДО</span><span>✅ ПОСЛЕ</span>';
+                    pairDiv.appendChild(labelDiv);
+
+                    // Создаем контейнер для фото в паре
+                    const imagesContainer = document.createElement('div');
+                    imagesContainer.className = 'images-container';
+                    imagesContainer.style.display = 'grid';
+                    imagesContainer.style.gridTemplateColumns = '1fr 1fr';
+                    imagesContainer.style.gap = '15px';
+
+                    // Добавляем первое фото (ДО)
+                    if (files[i]) {
+                        const img1 = document.createElement('img');
+                        img1.src = 'img/' + files[i];
+                        img1.alt = caption + ' - ДО';
+                        imagesContainer.appendChild(img1);
+                    }
+
+                    // Добавляем второе фото (ПОСЛЕ)
+                    if (files[i + 1]) {
+                        const img2 = document.createElement('img');
+                        img2.src = 'img/' + files[i + 1];
+                        img2.alt = caption + ' - ПОСЛЕ';
+                        imagesContainer.appendChild(img2);
+                    }
+
+                    pairDiv.appendChild(imagesContainer);
+                    modalImages.appendChild(pairDiv);
+
+                    // Добавляем разделитель между парами (кроме последней)
+                    if (i + 2 < files.length) {
+                        const divider = document.createElement('div');
+                        divider.className = 'pair-divider';
+                        divider.textContent = '•••';
+                        modalImages.appendChild(divider);
+                    }
+                }
+            }
 
             modalCaption.textContent = caption;
             modal.classList.add('active');
@@ -438,12 +518,12 @@
                     galleryItem.onclick = () => openModal(item.files, item.caption);
 
                     // Добавляем иконку фотоаппарата для пар "до/после"
-                    const photoIcon = item.files.length === 2 ? ' 📸' : '';
+                    const photoIcon = item.files.length > 2 ? ' 📸📸' : (item.files.length === 2 ? ' 📸' : '');
 
                     galleryItem.innerHTML = `
-          <img src="img/${previewFile}" alt="${item.caption}">
-          <p>${item.caption}${photoIcon}</p>
-        `;
+                        <img src="img/${previewFile}" alt="${item.caption}">
+                        <p>${item.caption}${photoIcon}</p>
+                    `;
 
                     galleryGrid.appendChild(galleryItem);
                 });
