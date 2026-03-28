@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://autominsk.vercel.app/sitemap.xml
